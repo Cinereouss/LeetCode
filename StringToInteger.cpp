@@ -3,7 +3,7 @@
 using namespace std;
 
 int myAtoi(string s) {
-    long long res = 0, mark = 1;
+    int res = 0, mark = 1;
     bool markBool = true, hadNum = false;
     int strLength = s.length();
 
@@ -26,14 +26,14 @@ int myAtoi(string s) {
 
         if (s[i] >= '0' && s[i] <= '9') {
             hadNum = true;
-            res = res * 10 + (int)s[i] - 48;
-            if (res >= 2147483648) {
+            if (res > (INT_MAX-(s[i]-'0'))/10) {
                 if (mark == 1) {
-                    return 2147483647;
+                    return INT_MAX;
                 } else {
-                    return -2147483648;
+                    return INT_MIN;
                 }
             }
+            res = res * 10 + (int)s[i] - 48;
         } else if (hadNum) {
             break;
         }
